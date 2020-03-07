@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace youtubeana
 {
-   public class trans
+   public static class trans
     {
-        public string TranCategory(string category)
+        public static string TranCategory(string category)
         {
             string report = string.Empty;
             switch (category)
