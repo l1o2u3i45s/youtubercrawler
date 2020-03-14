@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -15,6 +16,12 @@ namespace youtubeana
 {
     public class MainViewModel : ViewModelBase
     {
+        private int cycleTime;
+        public int CycleTime
+        {
+            get { return cycleTime; }
+            set { Set(() => CycleTime, ref cycleTime, value); }
+        }
         private string channelId;
         public string ChannelId
         {
@@ -56,8 +63,14 @@ namespace youtubeana
         }
 
         public void Act()
-        {
+        { 
+            Stopwatch sw = new Stopwatch();
+            sw.Reset();
+            sw.Start();
             YoutubeVideoAPIDataCollection = YoutubeVideoAPI.GetAllVideoDetail(ChannelId); 
+            sw.Stop();
+            CycleTime = Convert.ToInt32(sw.ElapsedMilliseconds / 1000);
+
             SaveData(); 
         }
     }

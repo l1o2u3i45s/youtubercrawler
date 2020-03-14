@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,11 +31,17 @@ namespace youtubeana
         }
 
         public static List<YoutubeVideoDetailData> GetAllVideoDetail(string channelID) {
+         
+            List<Task> tasks = new List<Task>();
             List<YoutubeVideoDetailData> ytDetailData = new List<YoutubeVideoDetailData>();
-            foreach (var video in YoutubeVideoAPI.GetAllVideos(channelID))
+            var videoList = YoutubeVideoAPI.GetAllVideos(channelID);
+
+            foreach (var video in videoList)
             {
-                ytDetailData.Add(JsonConvert.DeserializeObject<YoutubeVideoDetailData>(HttpMethod.GetMethod(string.Format(ytRequestDetailUrl, video.Id.VideoId))));
+                tasks.Add(Task.Run(() => { ytDetailData.Add(JsonConvert.DeserializeObject<YoutubeVideoDetailData>(HttpMethod.GetMethod(string.Format(ytRequestDetailUrl, video.Id.VideoId)))); }));
             }
+            Task.WhenAll(tasks).Wait();
+            
             return ytDetailData;
         }
 

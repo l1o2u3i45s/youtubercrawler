@@ -7,10 +7,24 @@
         mc:Ignorable="d" 
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Label Content="請輸入youtuber編碼:" FontSize="20" HorizontalAlignment="Left" Margin="32,102,0,0" VerticalAlignment="Top" Height="40" Width="213"/>
-        <TextBox Text="{Binding ChannelId,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" FontSize="20"  Height="36"   VerticalAlignment="Top" Width="173" Margin="245,102,0,0"/>
-        <Button Content="Done" Command="{Binding DoneCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Margin="150,193,0,0" Height="37"/>
-        <Label   FontSize="20" HorizontalAlignment="Left" Margin="130,253,0,0" VerticalAlignment="Top" Height="40" Width="213"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="請輸入youtuber編碼:" FontSize="20"  VerticalAlignment="Top" Height="40" Width="213"/>
+            <TextBox Text="{Binding ChannelId,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" FontSize="20"  Height="36"   VerticalAlignment="Top" Width="173"  />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
+            <Label Content="總共秒數:" FontSize="20"  VerticalAlignment="Top"  />
+            <Label Content="{Binding CycleTime,UpdateSourceTrigger=PropertyChanged}" FontSize="20"  VerticalAlignment="Top" Height="40" Width="213"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Done" Command="{Binding DoneCommand}"  VerticalAlignment="Top" Width="180"  Height="37"/> 
+        </StackPanel>
+       
 
     </Grid>
 </Window>
